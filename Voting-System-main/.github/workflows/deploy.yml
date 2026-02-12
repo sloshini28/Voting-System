@@ -3,7 +3,7 @@ name: Deploy Website to S3
 on:
   push:
     branches:
-      - main 
+      - master # Changed from main to match your terminal
 
 jobs:
   deploy:
@@ -17,9 +17,8 @@ jobs:
         with:
           args: --acl public-read --delete
         env:
-          AWS_S3_BUCKET: 'voting-system-vote'
-          # Added "secrets." below so GitHub can find your keys
+          AWS_S3_BUCKET: 'voting-system-losh' # Updated from your screenshot
           AWS_ACCESS_KEY_ID: ${{ secrets.VOTING_SYSTEM_ACCESS_KEY }} 
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOTING_SYSTEM_SECRET_ACCESS_KEY }} 
-          AWS_REGION: 'ap-south-1'
+          AWS_REGION: 'ap-south-1' # Verified Mumbai from your screenshot
           SOURCE_DIR: './'
