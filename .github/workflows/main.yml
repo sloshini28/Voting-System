@@ -1,0 +1,26 @@
+name: Deploy Website to S3
+
+on:
+  push:
+    branches:
+      - main  # Triggers when you push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          # --delete ensures files you delete in GitHub are also deleted in S3
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: 'voting-system-losh'
+          AWS_ACCESS_KEY_ID: ${{ secrets.VOTING_SYSTEM_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.VOTING_SYSTEM_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'ap-south-1' # Mumbai region
+          # This tells the robot to look INSIDE your subfolder
+          SOURCE_DIR: 'Voting-System-main'
