@@ -3,7 +3,7 @@ name: Deploy Website to S3
 on:
   push:
     branches:
-      - master # Changed from main to match your terminal
+      - main # Changed from main to match your terminal
 
 jobs:
   deploy:
